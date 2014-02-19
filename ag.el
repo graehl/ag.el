@@ -41,6 +41,12 @@
   :type '(repeat (string))
   :group 'ag)
 
+(defcustom ag-executable
+  (list "ag")
+  "list of commands required to start 'ag' program"
+  :type '(repeat (string))
+  :group 'ag)
+  
 (defcustom ag-highlight-search nil
   "Non-nil means we highlight the current search term in results.
 
@@ -138,7 +144,7 @@ If REGEXP is non-nil, treat STRING as a regular expression."
       (error "No such directory %s" default-directory))
     (compilation-start
      (mapconcat 'shell-quote-argument
-                (append '("ag") arguments (list string "."))
+                (append ag-executable arguments (list string "."))
                 " ")
      'ag-mode
      `(lambda (mode-name) ,(ag/buffer-name string directory regexp)))))
